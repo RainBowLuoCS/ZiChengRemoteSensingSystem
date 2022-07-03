@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="56c0c044-65f5-4f03-aebd-22162670fb0e" name="remote">
+        <fileTransfer rootFolder="/home/luorun/wxq/remoteSensing" accessType="SFTP" host="202.114.18.100" port="22" sshConfigId="592fc98f-4387-4257-a249-49742157766c" sshConfig="luorun@202.114.18.100:22 key" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

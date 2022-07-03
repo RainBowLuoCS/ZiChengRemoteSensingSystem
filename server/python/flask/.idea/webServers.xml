@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="52c2076b-1c98-42c7-b164-d11078e71679" name="luorun">
+        <fileTransfer rootFolder="/home/luorun/wxq/flask" accessType="SFTP" host="202.114.18.100" port="22" sshConfigId="3e81df05-1850-4034-97ed-d96d4662fb91" sshConfig="luorun@202.114.18.100:22 key" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

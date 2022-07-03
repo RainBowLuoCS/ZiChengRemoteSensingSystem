@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteTargetsManager">
+    <option name="projectDefaultTargetUuid" value="d67fea06-d798-4c7b-a393-2923b58bf039" />
+    <targets>
+      <target name="luorun" type="ssh/sftp" uuid="d67fea06-d798-4c7b-a393-2923b58bf039">
+        <config>
+          <option name="projectRootOnTarget" value="$PROJECT_DIR$/../../../luorun/wxq/remoteSensing" />
+          <option name="serverName" value="luorun@202.114.18.100:22 key" />
+        </config>
+        <ContributedStateBase type="GoLanguageRuntime">
+          <config>
+            <option name="goPath" value="$PROJECT_DIR$/../../../luorun/wxq/Go" />
+            <option name="goRoot" value="$PROJECT_DIR$/../../../luorun/wxq/go/bin/go" />
+            <option name="goVersion" value="go1.17.9 linux/amd64" />
+          </config>
+        </ContributedStateBase>
+      </target>
+    </targets>
+  </component>
+</project>
