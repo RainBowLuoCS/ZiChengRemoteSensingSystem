@@ -7,8 +7,10 @@ from tqdm import tqdm
 from functools import partial
 import cv2
 import numpy as np
-
-
+import os
+# 推理模型存放目录
+DEPLOY_PATH='/home/luorun/cd2022space/deploy'
+DATA_PATH='/home/luorun/cd2022space/Data'
 ##################################
 # 定义推理阶段使用的数据集
 
@@ -136,11 +138,11 @@ class ChangeDetector(object):
     def __init__(self,gpu_id=0,use_trt=False,use_patchs=False):
         self.use_patchs=use_patchs
         if self.use_patchs:
-            self.predictor=pdrs.deploy.Predictor('/home/luorun/cd2022space/deploy/cd',use_gpu=True,gpu_id=gpu_id,use_trt=use_trt)
+            self.predictor=pdrs.deploy.Predictor(os.path.join(DEPLOY_PATH,'cd'),use_gpu=True,gpu_id=gpu_id,use_trt=use_trt)
         else:
-            self.predictor=pdrs.deploy.Predictor('/home/luorun/cd2022space/deploy/cd_1024',use_gpu=True,gpu_id=gpu_id,use_trt=use_trt)
+            self.predictor=pdrs.deploy.Predictor(os.path.join(DEPLOY_PATH,'cd_1024'),use_gpu=True,gpu_id=gpu_id,use_trt=use_trt)
         self.predict(warmup_iters=5)
-    def predict(self,img_paths=[('/home/luorun/cd2022space/Data/cd_data/test/A/test_5.png','/home/luorun/cd2022space/Data/cd_data/test/B/test_5.png')],warmup_iters=0):
+    def predict(self,img_paths=[(os.path.join(DATA_PATH,'cd_data/test/A/test_5.png'),os.path.join(DATA_PATH,'cd_data/test/B/test_5.png'))],warmup_iters=0):
         results=[]
         if self.use_patchs:
             test_dataset = InferDataset(img_paths)
@@ -176,15 +178,15 @@ class ChangeDetector(object):
         return results
 class GroundSegmentor(object):
     def __init__(self,gpu_id=0,use_trt=False):
-        self.predictor=pdrs.deploy.Predictor('/home/luorun/cd2022space/deploy/gs',use_gpu=True,gpu_id=gpu_id,use_trt=use_trt)
-    def predict(self,img_paths=[('/home/luorun/cd2022space/Data/train_and_label/img_train/T000000.jpg')]):
+        self.predictor=pdrs.deploy.Predictor(os.path.join(DEPLOY_PATH,'gs'),use_gpu=True,gpu_id=gpu_id,use_trt=use_trt)
+    def predict(self,img_paths=[(os.path.join(DATA_PATH,'train_and_label/img_train/T000000.jpg'))]):
         results=[i['label_map'].tolist() for i in self.predictor.predict(img_file=img_paths)]
         return results
 class ObjectAttainor(object):
     def __init__(self,gpu_id=0,use_trt=False):
-        self.predictor=pdrs.deploy.Predictor('/home/luorun/cd2022space/deploy/oa',use_gpu=True,gpu_id=gpu_id,use_trt=use_trt)
+        self.predictor=pdrs.deploy.Predictor(os.path.join(DEPLOY_PATH,'oa'),use_gpu=True,gpu_id=gpu_id,use_trt=use_trt)
         # self.predict(warmup_iters=5)
-    def predict(self,img_paths=[('/home/luorun/cd2022space/Data/massroad/road_segmentation_ideal/training/input/img-1.png')]):
+    def predict(self,img_paths=[(os.path.join(DATA_PATH,'massroad/road_segmentation_ideal/training/input/img-1.png'))]):
         results=[i['label_map'].tolist() for i in self.predictor.predict(img_file=img_paths)]
         return results
 
@@ -201,15 +203,15 @@ class ObjectDetector(object):
         self.playground_init(gpu_id=gpu_id,use_trt=use_trt)
 
     def aircraft_init(self,gpu_id=0,use_trt=False):
-        self.aircraft_predictor = pdrs.deploy.Predictor('/home/luorun/cd2022space/deploy/aircraft', use_gpu=True, gpu_id=gpu_id,use_trt=use_trt)
+        self.aircraft_predictor = pdrs.deploy.Predictor(os.path.join(DEPLOY_PATH,'aircraft'), use_gpu=True, gpu_id=gpu_id,use_trt=use_trt)
     def overpass_init(self,gpu_id=0,use_trt=False):
-        self.overpass_predictor = pdrs.deploy.Predictor('/home/luorun/cd2022space/deploy/overpass', use_gpu=True, gpu_id=gpu_id,use_trt=use_trt)
+        self.overpass_predictor = pdrs.deploy.Predictor(os.path.join(DEPLOY_PATH,'overpass'), use_gpu=True, gpu_id=gpu_id,use_trt=use_trt)
     def oiltank_init(self,gpu_id=0,use_trt=False):
-        self.oiltank_predictor = pdrs.deploy.Predictor('/home/luorun/cd2022space/deploy/oiltank', use_gpu=True, gpu_id=gpu_id,use_trt=use_trt)
+        self.oiltank_predictor = pdrs.deploy.Predictor(os.path.join(DEPLOY_PATH,'oiltank'), use_gpu=True, gpu_id=gpu_id,use_trt=use_trt)
     def playground_init(self,gpu_id=0,use_trt=False):
-        self.oiltank_predictor = pdrs.deploy.Predictor('/home/luorun/cd2022space/deploy/playground', use_gpu=True,gpu_id=gpu_id, use_trt=use_trt)
+        self.oiltank_predictor = pdrs.deploy.Predictor(os.path.join(DEPLOY_PATH,'playground'), use_gpu=True,gpu_id=gpu_id, use_trt=use_trt)
 
-    def aircraft_predict(self,img_paths=[('/home/luorun/cd2022space/Data/train_and_label/img_train/T000000.jpg')]):
+    def aircraft_predict(self,img_paths=[(os.path.join(DATA_PATH,'/train_and_label/img_train/T000000.jpg'))]):
         infos = self.aircraft_predictor.predict(img_file=img_paths)
         result = []
         for info in infos[0]:
@@ -219,7 +221,7 @@ class ObjectDetector(object):
                 result.append(temp)
         return result
 
-    def overpass_predict(self,img_paths=[('/home/luorun/cd2022space/Data/train_and_label/img_train/T000000.jpg')]):
+    def overpass_predict(self,img_paths=[(os.path.join(DATA_PATH,'train_and_label/img_train/T000000.jpg'))]):
         infos = self.overpass_predictor.predict(img_file=img_paths)
         result = []
         for info in infos[0]:
@@ -229,7 +231,7 @@ class ObjectDetector(object):
                 result.append(temp)
         return result
 
-    def oiltank_predict(self,img_paths=[('/home/luorun/cd2022space/Data/train_and_label/img_train/T000000.jpg')]):
+    def oiltank_predict(self,img_paths=[(os.path.join(DATA_PATH,'train_and_label/img_train/T000000.jpg'))]):
         infos = self.oiltank_predictor.predict(img_file=img_paths)
         result = []
         for info in infos[0]:
@@ -239,7 +241,7 @@ class ObjectDetector(object):
                 result.append(temp)
         return result
 
-    def playground_predict(self,img_paths=[('/home/luorun/cd2022space/Data/train_and_label/img_train/T000000.jpg')]):
+    def playground_predict(self,img_paths=[(os.path.join(DATA_PATH,'train_and_label/img_train/T000000.jpg'))]):
         infos = self.playground_predictor.predict(img_file=img_paths)
         result = []
         for info in infos[0]:
