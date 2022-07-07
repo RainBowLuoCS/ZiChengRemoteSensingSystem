@@ -71,7 +71,7 @@
 
 https://pan.baidu.com/s/1-a0snuTHXLkhNTauLV2bNA
 
-提取码：SCUP 
+百度网盘提取码：SCUP 
 
 可以下载训练好的模型，也可以自己训练部署
 
