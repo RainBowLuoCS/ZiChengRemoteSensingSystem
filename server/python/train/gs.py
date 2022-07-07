@@ -85,9 +85,9 @@ import paddlers as pdrs
 from paddlers import transforms as T
 from matplotlib import pyplot as plt
 from PIL import Image
-paddle.device.set_device('gpu:2')
+# paddle.device.set_device('gpu:2')
 
-# 定义全局变量
+# 数据集路径，如果你训要训练该模型，你需要改变模型的路径
 DATA_PATH='/home/luorun/cd2022space/Data'
 EXP_PATH='/home/luorun/cd2022space/exp'
 # 随机种子

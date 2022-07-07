@@ -1,17 +1,11 @@
 from flask import Flask, request, jsonify, session
-from changedetector import ChangeDetector, GroundSegmentor, ObjectAttainor, ObjectDetector
+from .changedetector import ChangeDetector, GroundSegmentor, ObjectAttainor, ObjectDetector
 
 app = Flask(__name__)
 
-# # 将导出模型所在目录传入Predictor的构造方法中
-# gs_model_dir = '/home/luorun/cd2022space/deploy/gs'
-# gs_predictor = pdrs.deploy.Predictor(gs_model_dir, use_gpu=True,gpu_id=1)
-# gs_predictor.predict(img_file="/home/luorun/wxq/img/test1.jpg", warmup_iters=10)
+#### 服务器图片存储位置，直接使用文件系统进行存储
 
-# cd_model_dir = '/home/luorun/cd2022space/deploy/cd'
-# cd_predictor = pdrs.deploy.Predictor(cd_model_dir, use_gpu=True)
-# cd_predictor.predict(img_file=[("/home/luorun/wxq/img/cd_test_A_1.png", "/home/luorun/wxq/img/cd_test_B_1.png")], warmup_iters=10)
-
+IMAGEDBPATH = "/home/luorun/wxq/img/"
 
 gs_predictor = GroundSegmentor(gpu_id=1)
 cd_predictor = ChangeDetector(gpu_id=1)
@@ -28,7 +22,7 @@ def ping():
 @app.route("/gs")
 def gs():
     ps = str(request.args.get("ps"))
-    paths = ["/home/luorun/wxq/img/" + path for path in ps.split(',')]
+    paths = [IMAGEDBPATH + path for path in ps.split(',')]
     label_maps = gs_predictor.predict(img_paths=paths)
 
     return str(label_maps)
@@ -38,7 +32,7 @@ def gs():
 @app.route("/cd")
 def cd():
     ps = str(request.args.get("ps"))
-    paths = [("/home/luorun/wxq/img/" + path for path in ps.split(','))]
+    paths = [(IMAGEDBPATH + path for path in ps.split(','))]
     label_maps = cd_predictor.predict(img_paths=paths)
 
     return str(label_maps)
@@ -48,7 +42,7 @@ def cd():
 @app.route("/oa")
 def oa():
     ps = str(request.args.get("ps"))
-    paths = ["/home/luorun/wxq/img/" + ps]
+    paths = [IMAGEDBPATH + ps]
     print(paths)
     label_maps = oa_predictor.predict(img_paths=paths)
     # label_maps = oa_predictor.predict()
@@ -60,16 +54,17 @@ def oa():
 @app.route("/od/aircraft")
 def od_aircraft():
     ps = str(request.args.get("ps"))
-    paths = ["/home/luorun/wxq/img/" + ps]
+    paths = [IMAGEDBPATH + ps]
     bboxs = od.aircraft_predict(img_paths=paths)
 
     return str(bboxs)
+
 
 # 目标检测（立交桥目标中心）接口
 @app.route("/od/overpass")
 def od_overpass():
     ps = str(request.args.get("ps"))
-    paths = ["/home/luorun/wxq/img/" + ps]
+    paths = [IMAGEDBPATH + ps]
     bboxs = od.overpass_predict(img_paths=paths)
 
     return str(bboxs)
@@ -79,7 +74,7 @@ def od_overpass():
 @app.route("/od/oiltank")
 def od_oiltank():
     ps = str(request.args.get("ps"))
-    paths = ["/home/luorun/wxq/img/" + ps]
+    paths = [IMAGEDBPATH + ps]
     bboxs = od.oiltank_predict(img_paths=paths)
 
     return str(bboxs)
@@ -89,7 +84,7 @@ def od_oiltank():
 @app.route("/od/playground")
 def od_playground():
     ps = str(request.args.get("ps"))
-    paths = ["/home/luorun/wxq/img/" + ps]
+    paths = [IMAGEDBPATH + ps]
     bboxs = od.playground_predict(img_paths=paths)
 
     return str(bboxs)

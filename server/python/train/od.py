@@ -1,61 +1,8 @@
-import random
-import os.path as osp
-from os import listdir
-
-DATA_PATH='/home/luorun/cd2022space/Data'
-EXP_PATH='/home/luorun/cd2022space/exp'
-# # 随机数生成器种子
-# RNG_SEED = 52980
-# # 调节此参数控制训练集数据的占比
-# TRAIN_RATIO = 0.9
-# # 调节此参数控制验证集数据的占比
-# VAL_RATIO = 0.05
-# # 数据集路径
-# DATA_DIR = osp.join(DATA_PATH,'RSOD-Dataset')
-
-# # 目标类别
-# CLASS = 'overpass'
-
-
-# def write_rel_paths(phase, names, out_dir):
-#     """将文件相对路径存储在txt格式文件中"""
-#     with open(osp.join(out_dir, phase+'.txt'), 'w') as f:
-#         for name in names:
-#             f.write(
-#                 ' '.join([
-#                     osp.join(CLASS, 'JPEGImages', name),
-#                     osp.join(CLASS, 'Annotation', 'xml', name.replace('.jpg', '.xml'))
-#                 ])
-#             )
-#             f.write('\n')
-
-
-# random.seed(RNG_SEED)
-
-# names = listdir(osp.join(DATA_DIR, CLASS, 'JPEGImages'))
-# # 对文件名进行排序，以确保多次运行结果一致
-# names.sort()
-# random.shuffle(names)
-# len_train = int(len(names)*TRAIN_RATIO)
-# len_val = int(len(names)*VAL_RATIO)
-# write_rel_paths('train', names[:len_train], DATA_DIR)
-# write_rel_paths('val', names[len_train:len_train+len_val], DATA_DIR)
-# write_rel_paths('test', names[len_train+len_val:], DATA_DIR)
-
-# # 写入类别信息
-# with open(osp.join(DATA_DIR, 'labels.txt'), 'w') as f:
-#     f.write(CLASS+'\n')
-
-# print("数据集划分已完成。")
-
-
 
 
 # 导入需要用到的库
 
 import random
-import os.path as osp
-
 import cv2
 import numpy as np
 import paddle
@@ -64,9 +11,65 @@ from paddlers import transforms as T
 from paddlers.tasks.utils.visualize import visualize_detection
 from matplotlib import pyplot as plt
 from PIL import Image
+from os import listdir
+import os.path as osp
 
-# 定义全局变量
 
+# 目标类别
+CLASS = 'overpass'
+DATA_PATH='/home/luorun/cd2022space/Data'
+EXP_PATH='/home/luorun/cd2022space/exp'
+# 随机数生成器种子
+RNG_SEED = 52980
+# 调节此参数控制训练集数据的占比
+TRAIN_RATIO = 0.9
+# 调节此参数控制验证集数据的占比
+VAL_RATIO = 0.05
+# 数据集路径
+DATA_DIR = osp.join(DATA_PATH,'RSOD-Dataset')
+
+
+
+
+def write_rel_paths(phase, names, out_dir):
+    """将文件相对路径存储在txt格式文件中"""
+    with open(osp.join(out_dir, phase+'.txt'), 'w') as f:
+        for name in names:
+            f.write(
+                ' '.join([
+                    osp.join(CLASS, 'JPEGImages', name),
+                    osp.join(CLASS, 'Annotation', 'xml', name.replace('.jpg', '.xml'))
+                ])
+            )
+            f.write('\n')
+
+
+random.seed(RNG_SEED)
+
+names = listdir(osp.join(DATA_DIR, CLASS, 'JPEGImages'))
+# 对文件名进行排序，以确保多次运行结果一致
+names.sort()
+random.shuffle(names)
+len_train = int(len(names)*TRAIN_RATIO)
+len_val = int(len(names)*VAL_RATIO)
+write_rel_paths('train', names[:len_train], DATA_DIR)
+write_rel_paths('val', names[len_train:len_train+len_val], DATA_DIR)
+write_rel_paths('test', names[len_train+len_val:], DATA_DIR)
+
+# 写入类别信息
+with open(osp.join(DATA_DIR, 'labels.txt'), 'w') as f:
+    f.write(CLASS+'\n')
+
+print("数据集划分已完成。")
+
+
+
+
+
+
+
+
+# 数据集路径，如果你训要训练该模型，你需要改变模型的路径
 # 随机种子
 SEED = 52980
 # 数据集存放目录
@@ -80,7 +83,7 @@ TEST_FILE_LIST_PATH = osp.join(DATA_PATH,'RSOD-Dataset/test.txt')
 # 数据集类别信息文件路径
 LABEL_LIST_PATH = osp.join(DATA_PATH,'RSOD-Dataset/labels.txt')
 # 实验目录，保存输出的模型权重和结果
-EXP_DIR =  osp.join(EXP_PATH,'od_exp_overpass')
+EXP_DIR =  osp.join(EXP_PATH,'overpass')
 # 目标类别
 # CLASS = 'playground'
 # 模型验证阶段输入影像尺寸

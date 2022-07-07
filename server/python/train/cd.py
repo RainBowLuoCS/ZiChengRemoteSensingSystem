@@ -63,9 +63,7 @@ from paddlers import transforms as T
 from PIL import Image
 from skimage.io import imread, imsave
 from tqdm import tqdm
-from matplotlib import pyplot as p
-import paddle.vision.transforms.functional as F
-from paddle.vision.transforms import BaseTransform
+
 import random
 # 定义全局变量
 # 可在此处调整实验所用超参数
@@ -73,9 +71,10 @@ import random
 # 随机种子
 SEED = 20220423
 
-# 数据集路径
+# 数据集路径，如果你训要训练该模型，你需要改变模型的路径
 DATA_PATH='/home/luorun/cd2022space/Data'
 EXP_PATH='/home/luorun/cd2022space/exp'
+
 DATA_DIR = os.path.join(DATA_PATH,'cd_data')
 # 实验路径。实验目录下保存输出的模型权重和结果
 EXP_DIR = os.path.join(EXP_PATH,'cd_exp')
