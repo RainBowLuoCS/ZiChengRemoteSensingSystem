@@ -78,7 +78,7 @@
 
 https://pan.baidu.com/s/1-a0snuTHXLkhNTauLV2bNA
 
-提取码：SCUP 
+百度网盘提取码：SCUP 
 
 可以下载训练好的模型，也可以自己训练部署
 
@@ -90,7 +90,7 @@ pip install paddlepaddle
 pip install paddlers
 ```
 
-需保证paddle和paddlers的版本和你机器上的环境对的上
+需保证paddle和paddlers的版本和你机器上的cuda cudnn环境对的上
 
 [paddlepaddle安装传送门](https://www.paddlepaddle.org.cn/install/quick?docurl=/documentation/docs/zh/develop/install/pip/linux-pip.html)
 
