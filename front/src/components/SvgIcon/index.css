@@ -1,0 +1,91 @@
+.svg-icon {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  vertical-align: middle;
+}
+
+/* header */
+.header.logo {
+  zoom: 1.8;
+}
+.header.font {
+  zoom: 3.2;
+}
+
+/* sidebar */
+.sidebar.logo {
+  zoom: 1.8;
+}
+.sidebar.font {
+  zoom: 3.2;
+}
+
+/* toolbar */
+.toolbar {
+  cursor: pointer;
+  zoom: 1.4;
+  margin: 0 5px 0 0;
+  /* width: 25px; */
+}
+
+.toolbar.folder {
+  cursor: default;
+}
+
+.toolbar.right {
+  position: absolute;
+  right: 5px;
+  top: 8px;
+}
+
+.toolbar.up_down {
+  position: absolute;
+  right: 22px;
+  top: 8px;
+  zoom: 1.5;
+}
+
+.toolbar.dropdown {
+  margin: 0px 5 0 0;
+  width: 12px;
+  cursor: default;
+}
+
+/* main */
+.main.close {
+  cursor: pointer;
+  zoom: 1.3
+}
+
+.main.header.left {
+  margin-right: 4px;
+}
+
+/* form */
+.form.cross {
+  zoom: 1.4;
+}
+
+/* perspective */
+.perspective.detail_close {
+  position: absolute;
+  right: 1px;
+  top: 1px;
+  zoom: 3;
+  cursor: pointer;
+}
+
+.perspective.slide {
+  /* position: absolute; */
+  /* top: 50%; */
+  /* transform: translateX(-45%) translateY(-50%); */
+  zoom: 3;
+  /* cursor: pointer; */
+}
+
+/* typeSelect */
+.typeSelect {
+  zoom: 2;
+  margin-right: 5px;
+}
