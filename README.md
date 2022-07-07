@@ -15,9 +15,13 @@
 ### 系统特色
 **多视角分析展示**
 * 轴测视角能够同时展示特定遥感图像分析地全部结果，保证用户能够对于图像获得更高维度的分析
-![image](https://user-images.githubusercontent.com/95271394/177767219-60b9b491-66fe-4401-b335-f1aa89223dc4.png)
+
+![image](https://user-images.githubusercontent.com/95271394/177767219-60b9b491-66fe-4401-b335-f1aa89223dc4.png)、
+
 * 平面视角能够准确观察到图像细节之间地对比和分析结果与图像的对应关系
+
 ![image](https://user-images.githubusercontent.com/95271394/177767825-57e9de75-00e8-453d-9de7-3ba2f93c0707.png)
+
 **多层级管理**
 * 系统通过项目、组、图层三个层级管理遥感图像及其分析结果，方便、快捷、高效
 * 项目内可存储多个遥感图像及其对应的所有分析结果
